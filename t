@@ -131,3 +131,37 @@ AttributeError: 'Tensor' object has no attribute 'last_hidden_state'
   File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py", line 117, in forward
     return F.linear(input, self.weight, self.bias)
 RuntimeError: mat1 and mat2 must have the same dtype, but got BFloat16 and Float
+
+
+
+
+    loss = self.compute_loss(model, inputs)
+  File "/content/drive/MyDrive/llm2vec-main2/experiments/run_simcse.py", line 376, in compute_loss
+    outputs=model(input_dict)#(sentence_feature)#(input_ids)#, embed_mask"=embed_mask)#, attention_mask=attention_mask)#model(**input_dict)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/content/drive/MyDrive/llm2vec-main2/llm2vec/llm2vec.py", line 238, in forward
+    reps = self.model(**sentence_feature)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 762, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/llama/modeling_llama.py", line 931, in forward
+    inputs_embeds = self.embed_tokens(input_ids)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/sparse.py", line 164, in forward
+    return F.embedding(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/functional.py", line 2267, in embedding
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+RuntimeError: Expected tensor for argument #1 'indices' to have one of the following scalar types: Long, Int; but got torch.cuda.FloatTensor instead (while checking arguments for embedding)
