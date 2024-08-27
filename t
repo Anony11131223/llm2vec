@@ -1220,3 +1220,26 @@ if __name__ == "__main__":
     return F.linear(input, self.weight, self.bias)
 RuntimeError: mat1 and mat2 must have the same dtype, but got Long and Float
   0%|                                                   | 0/225 [00:02<?, ?it/s]
+
+
+
+
+
+     main()
+  File "/content/drive/MyDrive/llm2vec-main2/experiments/run_simcse.py", line 509, in main
+    trainer.train()
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 1932, in train
+    return inner_training_loop(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2345, in _inner_training_loop
+    self._maybe_log_save_evaluate(tr_loss, grad_norm, model, trial, epoch, ignore_keys_for_eval)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2796, in _maybe_log_save_evaluate
+    self._save_checkpoint(model, trial, metrics=metrics)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2875, in _save_checkpoint
+    self.save_model(output_dir, _internal_call=True)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 3429, in save_model
+    self._save(output_dir)
+  File "/content/drive/MyDrive/llm2vec-main2/experiments/run_simcse.py", line 392, in _save
+    self.model.save_pretrained(output_dir)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1729, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'LLM2Vec' object has no attribute 'save_pretrained'. Did you mean: 'from_pretrained'?
