@@ -33,6 +33,16 @@
         outputs=model(input_dict)#(sentence_feature)#(input_ids)#, embed_mask"=embed_mask)#, attention_mask=attention_mask)#model(**input_dict)
         representation=outputs.last_hidden_state[:, 0, :]
         predictions=self.mlp(representation).squeeze(-1)
+
+
+  File "/usr/local/lib/python3.10/dist-packages/peft/peft_model.py", line 762, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+TypeError: LlamaModel.forward() got an unexpected keyword argument 'embed_mask'
+  0%|                                                     | 0/225 [00:00<?, ?it/s]
         loss=nn.MSELoss()(predictions, labels.float())
         if return_outputs:
             return (loss, outputs)
