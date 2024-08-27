@@ -21,3 +21,8 @@
         1., 1., 1., 1., 1., 1., 0., 1., 0., 1., 1., 1., 1., 1., 1., 1., 0., 1.,
         1., 1., 0., 1., 1., 0., 1., 1., 1., 1., 0., 1., 1., 1., 1., 0., 1., 1.,
         1., 1.], device='cuda:0')]
+  File "/content/drive/MyDrive/llm2vec-main2/llm2vec/llm2vec.py", line 234, in forward
+    if "embed_mask" in sentence_feature:
+  File "/usr/local/lib/python3.10/dist-packages/torch/_tensor.py", line 1114, in __contains__
+    raise RuntimeError(
+RuntimeError: Tensor.__contains__ only supports Tensor or scalar, but you passed in a <class 'str'>.
