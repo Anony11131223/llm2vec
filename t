@@ -1261,3 +1261,51 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/dist-packages/transformers/trainer_callback.py", line 143, in save_to_json
     with open(json_path, "w", encoding="utf-8") as f:
 FileNotFoundError: [Errno 2] No such file or directory: 'output/mntp-simcse/Meta-Llama-3-8B-Instruct/checkpoint-50/trainer_state.json'
+
+
+
+   train_examples=load_dataset_from_dataframe('/content/drive/MyDrive/llm2vec-main2/experiments/tfns.parquet')
+
+
+    torch_dtype = (
+        model_args.torch_dtype
+        if model_args.torch_dtype in ["auto", None]
+        else getattr(torch, model_args.torch_dtype)
+    )
+    model = LLM2Vec.from_pretrained(
+        base_model_name_or_path=model_args.model_name_or_path,
+        enable_bidirectional=model_args.bidirectional,
+        peft_model_name_or_path=model_args.peft_model_name_or_path,
+        merge_peft=True,
+        pooling_mode=model_args.pooling_mode,
+        max_length=model_args.max_seq_length,
+        torch_dtype=torch_dtype,
+        attn_implementation=model_args.attn_implementation,
+        #attention_dropout=custom_args.simcse_dropout,
+    )
+
+    model.model = initialize_peft(
+        model.model,
+        lora_r=custom_args.lora_r,
+        lora_alpha=2 * custom_args.lora_r,
+        lora_dropout=custom_args.lora_dropout,
+    )
+
+    tokenizer = model.tokenizer
+
+    data_collator = DefaultCollator(model)
+
+    trainer = ReturnPredictionTrainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_examples,
+        data_collator=data_collator,
+        tokenizer=tokenizer,
+        mlp_hidden_dim=custom_args.lora_r * 64,
+        #loss_function=train_loss,
+    )
+
+    if custom_args.stop_after_n_steps is not None:
+        trainer.add_callback(StopTrainingCallback(custom_args.stop_after_n_steps))
+
+    trainer.train()
